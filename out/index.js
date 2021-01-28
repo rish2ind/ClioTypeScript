@@ -35,6 +35,7 @@ var RequestOrganizer = /** @class */ (function () {
                     data : finalAccountList
                 };
                 console.log(obj);
+                svcRQ.send(obj);
             }); */
         // ***********************  Contact List *******************  //
         /*        var finalContactList : any = [];
@@ -75,68 +76,70 @@ var RequestOrganizer = /** @class */ (function () {
                     svcRQ.send(obj);
                 })  */
         // ***********************   Bill List ********************* //
-        var finalBillList = [];
-        svc.getBills(function (billList) {
-            console.log('This is bill data : ', billList);
-            for (var i = 0; i < billList.data.length; i++) {
-                finalBillList.push({
-                    "number": billList.data[i].number,
-                    "date": billList.data[i].created_at,
-                    "dueDate": billList.data[i].due_at,
-                    "shipDate": null,
-                    "contactID": billList.data[i].client.id,
-                    "totalLineItem": null,
-                    "amount": null,
-                    "balance": billList.data[i].balance,
-                    "totalTax": billList.data[i].tax_sum,
-                    "platformId": null,
-                    "type": billList.data[i].type,
-                    "lines": null
+        /*      var finalBillList : any = [];
+              svc.getBills((billList: any)=> {
+                  console.log('This is bill data : ', billList);
+                  for(var i = 0; i< billList.data.length; i++){
+                      finalBillList.push({
+                          "number" : billList.data[i].number,
+                          "date" : billList.data[i].created_at,
+                          "dueDate" : billList.data[i].due_at,
+                          "shipDate" : null,
+                          "contactID" : billList.data[i].client.id,
+                          "totalLineItem" : null,
+                          "amount" : null,
+                          "balance" : billList.data[i].balance,
+                          "totalTax" : billList.data[i].tax_sum,
+                          "platformId" : null,
+                          "type" : billList.data[i].type,
+                          "lines" : null
+                      });
+                  }
+               //   console.log('This is bill data : ' , billList);
+                  var currentDate = new Date();
+                  var obj = {
+                      metadata : {
+                          entity : "BILLS",
+                          operation : "CREATE",
+                          timestamp : currentDate,
+                          source : "smai-qb-service",
+                          destination : 'smai-business-service',
+                          bussinessId : '980e48bc-102d-4cd1-9382-3231381e5a03',
+                          
+                      },
+                      data : finalBillList
+                  };
+                  console.log('This is final bill list : ', obj);
+                  svcRQ.send(obj);
+              })
+          */
+        //************ Activity List ************************** //
+        var finalActivityList = [];
+        svc.getActivities(function (activityList) {
+            console.log('This is acitvity : ', activityList);
+            for (var i = 0; i < activityList.data.length; i++) {
+                finalActivityList.push({
+                    "type": activityList.data[i].type,
+                    "price": activityList.data[i].price,
+                    "note": activityList.data[i].note,
+                    "date": activityList.data[i].date
                 });
             }
-            //   console.log('This is bill data : ' , billList);
             var currentDate = new Date();
             var obj = {
                 metadata: {
-                    entity: "BILLS",
+                    entity: "ACTIVITIES",
                     operation: "CREATE",
                     timestamp: currentDate,
                     source: "smai-qb-service",
                     destination: 'smai-business-service',
                     bussinessId: '980e48bc-102d-4cd1-9382-3231381e5a03',
                 },
-                data: finalBillList
+                data: finalActivityList
             };
-            console.log('This is final bill list : ', obj);
+            console.log('This is final activity list : ', obj);
             svcRQ.send(obj);
         });
-        //************ Activity List ************************** //
-        /*     var finalActivityList: any = [];
-             svc.getActivities((activityList: any) => {
-                 console.log('This is acitvity : ', activityList);
-                 for(var i = 0; i< activityList.data.length; i++){
-                     finalActivityList.push({
-                         "type" : activityList.data[i].type,
-                         "price" : activityList.data[i].price,
-                         "note" : activityList.data[i].note,
-                         "date" : activityList.data[i].date
-                     });
-                 }
-                 var currentDate = new Date();
-                 var obj = {
-                     metadata : {
-                         entity : "ACTIVITIES",
-                         operation : "CREATE",
-                         timestamp : currentDate,
-                         source : "smai-qb-service",
-                         destination : 'smai-business-service',
-                         bussinessId : '980e48bc-102d-4cd1-9382-3231381e5a03',
-                         
-                     },
-                     data : finalActivityList
-                 };
-                 console.log('This is final activity list : ', obj);
-             })*/
         // *********************    Line Item List   ********************* //
         /*     var finalLineItemList: any = [];
              svc.getLineItems((lineItemsList: any) => {
@@ -163,6 +166,7 @@ var RequestOrganizer = /** @class */ (function () {
                      data : finalLineItemList
                  };
                  console.log('This is final LINE ITEMS list : ', obj);
+                 svcRQ.send(obj);
              })*/
     };
     return RequestOrganizer;

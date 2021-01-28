@@ -32,6 +32,7 @@ let svc = new Services();
                     data : finalAccountList
                 };
                 console.log(obj);
+                svcRQ.send(obj);
             }); */
 
 
@@ -76,7 +77,7 @@ let svc = new Services();
 
 
             // ***********************   Bill List ********************* //
-            var finalBillList : any = [];
+      /*      var finalBillList : any = [];
             svc.getBills((billList: any)=> {
                 console.log('This is bill data : ', billList);
                 for(var i = 0; i< billList.data.length; i++){
@@ -112,10 +113,10 @@ let svc = new Services();
                 console.log('This is final bill list : ', obj);
                 svcRQ.send(obj);
             })  
-
+        */
 
             //************ Activity List ************************** //
-       /*     var finalActivityList: any = [];
+            var finalActivityList: any = [];
             svc.getActivities((activityList: any) => {
                 console.log('This is acitvity : ', activityList);
                 for(var i = 0; i< activityList.data.length; i++){
@@ -140,7 +141,8 @@ let svc = new Services();
                     data : finalActivityList
                 };
                 console.log('This is final activity list : ', obj);
-            })*/
+                svcRQ.send(obj);
+            })
 
             // *********************    Line Item List   ********************* //
        /*     var finalLineItemList: any = [];
@@ -168,6 +170,7 @@ let svc = new Services();
                     data : finalLineItemList
                 };
                 console.log('This is final LINE ITEMS list : ', obj);
+                svcRQ.send(obj);
             })*/
         }
     }
